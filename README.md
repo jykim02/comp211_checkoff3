@@ -7,4 +7,36 @@ The topic I chose to explore for the third checkoff was about Python Libraries I
 I chose to explore ctypes, a built-in foreign function library for Python that allows calling functions in DLLs/shared libraries.
 
 ## Summarizing Interesting Discoveries
-I found that the function in C ran much faster than the one written in Python.
+I found that the function in C ran much faster than the one written in Python. For a vector length of 10^6, Python performed worse by an order of magnitude of 2.
+
+## Run the experiment
+
+To run the project, run these commands from the project directory:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Compile the C library (on macOS):
+
+```sh
+cc -O3 -dynamiclib dot_product.c -o libdot.so
+```
+
+Then run:
+
+```sh
+python benchmark.py
+```
+
+The script only imports `time`, `numpy`, `matplotlib`, and `ctypes`.
+The Python function multiplies matching list elements and adds them in a loop.
+The C function receives pointers to the same data in NumPy arrays.
+
+Each implementation runs ten times per vector length. The script plots the
+average runtimes and saves the graph as `benchmark.png`.
+Input preparation happens before timing.
+
+Edit `sizes` in `benchmark.py` to change the vector lengths.
