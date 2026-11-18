@@ -7,7 +7,9 @@ The topic I chose to explore for the third checkoff was about Python Libraries I
 I chose to explore ctypes, a built-in foreign function library for Python that allows calling functions in DLLs/shared libraries.
 
 ## Summarizing Interesting Discoveries
-I found that the function in C ran much faster than the one written in Python. For a vector length of 10^6, Python performed worse by an order of magnitude of 2.
+I found that the function in C ran much faster than the one written in Python. For a vector length of 1 million, Python performed ten times worse.
+
+NumPy's `np.dot` was faster than my C implementation at that vector length. My C function adds each product to a single running total. NumPy can use an optimized library for the dot product, which can process several elements at once and keep multiple partial sums before combining them. These optimizations help explain how NumPy can outperform a simple compiled loop. [NumPy `dot` documentation](https://numpy.org/doc/stable/reference/generated/numpy.dot.html)· 
 
 ## Run the experiment
 
